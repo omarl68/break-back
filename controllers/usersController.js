@@ -14,10 +14,10 @@ const storage = multer.diskStorage({
 
     destination: './assets/images/users',
 
-    filename: function(req, file, cb) {
-        let name = req.body.firstname.replace(' ', '').toLowerCase();
+    filename: function (req, file, cb) {
+        let firstname = req.body.firstname.replace(' ', '').toLowerCase();
 
-        cb(null, name + '-' + Date.now() + path.extname(file.originalname));
+        cb(null, firstname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
 
@@ -45,7 +45,7 @@ const upload = multer({
 
     storage: storage,
     limits: { fileSize: 1000000 },
-    fileFilter: function(req, file, cb) {
+    fileFilter: function (req, file, cb) {
         checkFileType(file, cb);
     }
 });
@@ -53,24 +53,24 @@ const upload = multer({
 const app = express()
 
 // register API
-app.post('/', [upload.single("picture")], async(req, res) => {
+app.post('/', [upload.single("picture")], async (req, res) => {
     try {
         // 1 - recupération des données mel front
         let data = req.body
-            // 1.1 recupération du fichier
+        // 1.1 recupération du fichier
         console.log(data)
-            // 2 - creation d'un objet User 
-            // 2.1 - data => user
+        // 2 - creation d'un objet User 
+        // 2.1 - data => user
         let user = new User({
             firstname: data.firstname,
             lastname: data.lastname,
-            image: file.filename,
             email: data.email,
             password: bcrypt.hashSync(data.password, bcrypt.genSaltSync(10)),
-            phone:data.phone,
-            adress:data.adress,
-            state:data.state,
-            zipe:data.zipe
+            phone: data.phone,
+            adress: data.adress,
+            state: data.state,
+            zipe: data.zipe,
+            image: file.filename,
         })
 
         // 3 - save lel objet
@@ -85,7 +85,7 @@ app.post('/', [upload.single("picture")], async(req, res) => {
 
 })
 
-app.post('/login', async(req, res) => {
+app.post('/login', async (req, res) => {
     try {
 
         let data = req.body
@@ -117,7 +117,7 @@ app.post('/login', async(req, res) => {
     }
 })
 
-app.get('/', async(req, res) => {
+app.get('/', async (req, res) => {
     try {
         let users = await User.find()
         res.status(200).send(users)
@@ -126,7 +126,7 @@ app.get('/', async(req, res) => {
     }
 })
 
-app.get('/:id', async(req, res) => {
+app.get('/:id', async (req, res) => {
     try {
         let userId = req.params.id
 
@@ -142,7 +142,7 @@ app.get('/:id', async(req, res) => {
     }
 })
 
-app.patch('/:id', async(req, res) => {
+app.patch('/:id', async (req, res) => {
     try {
         let userId = req.params.id
         let data = req.body
@@ -165,7 +165,7 @@ app.patch('/:id', async(req, res) => {
 
 })
 
-app.delete('/:id', async(req, res) => {
+app.delete('/:id', async (req, res) => {
     try {
         let userId = req.params.id
 

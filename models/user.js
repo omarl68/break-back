@@ -9,10 +9,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
-        type: String,
-   
-    },
     email: {
         type: String,
         required: true,
@@ -42,6 +38,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "client"
     },
+    image: {
+        type: String,
+        required: true
+    }
 })
 
 const User = mongoose.model("user", userSchema)

@@ -10,9 +10,9 @@ const storage = multer.diskStorage({
   destination: "./assets/images/food",
 
   filename: function (req, file, cb) {
-    let name = req.body.name.replace(" ", "").toLowerCase();
+    let title = req.body.title.replace(" ", "").toLowerCase();
 
-    cb(null, name + "-" + Date.now() + path.extname(file.originalname));
+    cb(null, title + "-" + Date.now() + path.extname(file.originalname));
   },
 });
 
