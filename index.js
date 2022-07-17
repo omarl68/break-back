@@ -11,9 +11,10 @@ const app = express()
 const port = 3000
 
 // import controllers
-
+const cofesController = require("./controllers/cofesContorller")
+const drinksController = require("./controllers/drinksController")
 const messagesController = require("./controllers/messagesController")
-
+const foodsController = require("./controllers/foodsController")
 const usersController = require("./controllers/usersController")
 
 // autorisé les données de type JSON
@@ -28,14 +29,15 @@ app.use(cors())
 // access to public files
 app.use(express.static('./assets/images'));
 app.use(express.static('./assets/images/users'));
-app.use(express.static('./assets/images/trainers'));
-app.use(express.static('./assets/images/trainings'));
-app.use(express.static('./assets/images/categories'));
+app.use(express.static('./assets/images/drink'));
+app.use(express.static('./assets/images/food'));
+app.use(express.static('./assets/images/cofe'));
 
 // router
-
+app.use("/cofes", cofesController)
+app.use("/drinks", drinksController)
 app.use("/messages", messagesController)
-
+app.use("/foods", foodsController)
 app.use("/users", usersController)
 
 // create server
