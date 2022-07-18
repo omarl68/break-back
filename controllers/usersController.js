@@ -57,6 +57,7 @@ app.post('/', [upload.single("picture")], async (req, res) => {
     try {
         // 1 - recupération des données mel front
         let data = req.body
+        let file = req.file;
         // 1.1 recupération du fichier
         console.log(data)
         // 2 - creation d'un objet User 
